@@ -11,6 +11,7 @@ public class web_server {
     public static void main(String args[]){
         System.out.println("서버 시작");
         System.out.println("포트 번호 : " + port);
+        int log_count = 0;
         try
         {
             ServerSocket listen_socket = new ServerSocket(port);
@@ -18,6 +19,10 @@ public class web_server {
             Socket socket;
             while((socket=listen_socket.accept())!=null){
                 System.out.println("socket start");
+                System.out.println("-"+log_count + "-" + "번째 접근입니다.");
+                log_count++;
+                request_handler req_handler = new request_handler();
+                req_handler.run(socket);
             }
         }
         catch(Exception e)
