@@ -18,9 +18,19 @@ public class request_handler {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
             Map<String, String> header_map = req_util.read_header(br);
-            System.out.println("Content-length : " + Integer.valueOf(header_map.get("Content-Length")));
-            String request_body = request_util.read_data(br, Integer.valueOf(header_map.get("Content-Length")));
-            System.out.println(request_body.trim());
+
+            if(header_map.containsKey("Content-length")){
+                System.out.println("Content-length : " + Integer.valueOf(header_map.get("Content-Length")));
+                String request_body =
+                        request_util.read_data(br, Integer.valueOf(header_map.get("Content-Length")));
+                System.out.println(request_body.trim());
+            }
+            else{
+                System.out.println("Content-length : " + 0);
+                String request_body =
+                        request_util.read_data(br, 0);
+                System.out.println(request_body.trim());
+            }
 
             DataOutputStream dos = new DataOutputStream(out);
             byte[] body = "hello".getBytes();
