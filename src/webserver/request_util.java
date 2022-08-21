@@ -14,6 +14,7 @@ public class request_util {
         System.out.println(br.readLine());
         while((line=br.readLine())!=null){
             if(!line.equals("")){
+                System.out.println("line");
                 System.out.println(line);
                 String key = line.split(":")[0];
                 String value = line.split(":")[1].trim();
