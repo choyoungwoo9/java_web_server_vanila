@@ -8,14 +8,12 @@ import java.util.Map;
 public class request_util {
 
     public Map<String, String> read_header(BufferedReader br) throws IOException {
-        System.out.println("req_util.read_header");
+        System.out.println("START //// req_util.read_header");
         Map<String, String> map = new HashMap<String, String>();
         String line;
         System.out.println(br.readLine());
         while((line=br.readLine())!=null){
             if(!line.equals("")){
-                System.out.println("line");
-                System.out.println(line);
                 String key = line.split(":")[0];
                 String value = line.split(":")[1].trim();
                 map.put(key, value);
@@ -24,6 +22,7 @@ public class request_util {
                 break;
             }
         }
+        System.out.println("END //// req_util.read_header");
         return map;
     }
 
