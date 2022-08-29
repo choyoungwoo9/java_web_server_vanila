@@ -28,6 +28,7 @@ public class request_handler {
                 String http_protocol = arr_first_line[2];
 
                 Map<String, String> header_map = req_util.read_header(br);
+                String respContextType = "";
 
                 System.out.println("req 헤더 출력 시작");
                 header_map.forEach((key, value) -> {
@@ -47,6 +48,9 @@ public class request_handler {
                     System.out.println("request_body.trim()");
                     System.out.println(request_body.trim());
                 }
+                if(header_map.containsKey("Accept")){
+                    respContextType=header_map.get("Accept").split(" ")[0];
+                }
 
                 DataOutputStream dos = new DataOutputStream(out);
                 File file = new File(System.getProperty("user.dir") + "\\src\\webserver\\webapp\\" + http_url);
@@ -59,7 +63,7 @@ public class request_handler {
                     body = Files.readAllBytes(new File(file_path_404).toPath());
                 }
 
-                response_util.response_200_header(dos, body.length);
+                response_util.response_200_header(respContextType, dos, body.length);
                 response_util.response_body(dos, body);
             } else {
                 throw new Exception("INVALID FORMAT");

@@ -4,11 +4,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class response_util {
-    public static void response_200_header(DataOutputStream dos, int lengthOfBodyContent){
+    public static void response_200_header(String respContextType, DataOutputStream dos, int lengthOfBodyContent){
         System.out.println("START //// response_util.response_200_header");
         try{
             dos.writeBytes("HTTP/1.1 200 OK \r\n");
             dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
+            //dos.writeBytes("Content-Type: text/html,text/css,text/javascript;charset=utf-8\r\n");
+            //dos.writeBytes("Content-Type: "+ respContextType + ";charset=utf-8\r\n");
+            System.out.println("Content-Type: "+ respContextType + ";charset=utf-8\r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");
         }
